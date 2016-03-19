@@ -12,6 +12,10 @@ app.get('/about', middleware.logger, function(req, res) {
 	res.send('About Us!');
 })
 
+app.get('/contact', middleware.logger, function(req, res) {
+	res.sendFile(__dirname + '/public/contact.html');
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.listen(APP_PORT, function() {
