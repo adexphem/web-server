@@ -1,13 +1,13 @@
 const { Client } = require('pg');
 
-const pool = new Client({
+const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
 
-pool.connect();
+client.connect();
 
 pool.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   if (err) throw err;
@@ -17,4 +17,4 @@ pool.query('SELECT table_schema,table_name FROM information_schema.tables;', (er
   client.end();
 });
 
-module.exports = pool;
+module.exports = client;
