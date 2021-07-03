@@ -1,12 +1,10 @@
-const dbConn = require('./utilities')
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: dbConn.user,
-  password: dbConn.password,
-  database: dbConn.database,
-  host: dbConn.host,
-  port: dbConn.port
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 module.exports = pool;
