@@ -1,23 +1,16 @@
-var express = require('express');
-var app = express();
-var APP_PORT = process.env.PORT || 3000;
+const express = require('express');
+const studentRoutes = require('./src/student/routes');
+const app = express();
+const port = process.env.APP_PORT || 3002;
 
-var middleware = require('./middleware.js');
+app.use(express.json())
 
-
-app.use(middleware.logger);
-//app.use(middleware.requireAuthentication);
-
-app.get('/about', middleware.logger, function(req, res) {
-	res.send('About Us!');
+app.get("/", (req, res) => {
+  res.send("Hellooo")
 })
 
-app.get('/contact', middleware.logger, function(req, res) {
-	res.sendFile(__dirname + '/public/contact.html');
-});
+app.use('/api/v1/students', studentRoutes)
 
-app.use(express.static(__dirname + '/public'));
-
-app.listen(APP_PORT, function() {
-	console.log('Express Server Started on '+ APP_PORT);
-});
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`)
+})
